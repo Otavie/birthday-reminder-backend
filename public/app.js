@@ -92,7 +92,7 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
 node_cron_1.default.schedule('0 7 * * *', cronTask); // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 app.listen(PORT, () => {
-    console.log(`Server is running on PORT http://localhost:${PORT}`);
-    // console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
+    // console.log(`Server is running on PORT http://localhost:${PORT}`)
+    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`);
 });
 exports.default = app;
