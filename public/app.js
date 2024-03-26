@@ -30,7 +30,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Connect to Database
 (0, db_1.default)();
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).json({
         message: 'Server is live!'
     });

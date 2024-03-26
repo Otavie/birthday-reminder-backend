@@ -21,7 +21,7 @@ app.use(cors())
 // Connect to Database
 dbConnection()
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).json({
         message: 'Server is live!'
     })
