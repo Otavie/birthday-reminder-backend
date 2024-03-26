@@ -3,7 +3,7 @@ import { addCelebrant, getAllCelebrants } from "../controllers/celebrants"
 import validateRequest from '../middleware/validate.request'
 const router = Router()
 
-router.get('/birthdays', getAllCelebrants)
+router.get('/', getAllCelebrants)
 router.post('/birthdays', validateRequest, addCelebrant)
 
 export default router
