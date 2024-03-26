@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import dbConnection from './database/db'
@@ -21,7 +21,7 @@ app.use(cors())
 // Connect to Database
 dbConnection()
 
-app.use('/', routes)
+app.use('/birthdays', routes)
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -69,7 +69,6 @@ const cronTask = async () => {
         })
 
         if (celebrants.length) {
-            // console.log(celebrants)
             console.log('Sending birthday email...')
             celebrants.forEach((celebrant) => {
                 sendBirthdayEmail(celebrant.email)
@@ -89,8 +88,19 @@ cron.schedule('0 7 * * *', cronTask)         // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 
 app.listen(PORT, () => {
-    // console.log(`Server is running on PORT http://localhost:${PORT}`)
-    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
+    console.log(`Server is running on PORT http://localhost:${PORT}`)
+})
+
+app.get('/', async (req: Request, res: Response) => {
+    try {
+            res.status(200).send({
+            message: 'Birthday server in live!'
+        })
+    } catch (error) {
+            res.status(500).json({
+            message: 'Birthday server is NOT live!'
+        })
+    }
 })
 
 export default app

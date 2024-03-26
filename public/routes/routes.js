@@ -7,11 +7,6 @@ const express_1 = require("express");
 const celebrants_1 = require("../controllers/celebrants");
 const validate_request_1 = __importDefault(require("../middleware/validate.request"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Birthday server in live!'
-    });
-});
-router.get('/birthdays', celebrants_1.getAllCelebrants);
-router.post('/birthdays', validate_request_1.default, celebrants_1.addCelebrant);
+router.get('/', celebrants_1.getAllCelebrants);
+router.post('/', validate_request_1.default, celebrants_1.addCelebrant);
 exports.default = router;

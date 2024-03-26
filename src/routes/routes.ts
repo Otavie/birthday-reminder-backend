@@ -3,13 +3,7 @@ import { addCelebrant, getAllCelebrants } from "../controllers/celebrants"
 import validateRequest from '../middleware/validate.request'
 const router = Router()
 
-router.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Birthday server in live!'
-    })
-})
-
-router.get('/birthdays', getAllCelebrants)
-router.post('/birthdays', validateRequest, addCelebrant)
+router.get('/', getAllCelebrants)
+router.post('/', validateRequest, addCelebrant)
 
 export default router

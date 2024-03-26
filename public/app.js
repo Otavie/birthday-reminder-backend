@@ -30,7 +30,7 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Connect to Database
 (0, db_1.default)();
-app.use('/', routes_1.default);
+app.use('/birthdays', routes_1.default);
 const transporter = nodemailer_1.default.createTransport({
     service: 'gmail',
     host: "smtp.gmail.com",
@@ -73,7 +73,6 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
         if (celebrants.length) {
-            // console.log(celebrants)
             console.log('Sending birthday email...');
             celebrants.forEach((celebrant) => {
                 sendBirthdayEmail(celebrant.email);
@@ -92,7 +91,18 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
 node_cron_1.default.schedule('0 7 * * *', cronTask); // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 app.listen(PORT, () => {
-    // console.log(`Server is running on PORT http://localhost:${PORT}`)
-    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`);
+    console.log(`Server is running on PORT http://localhost:${PORT}`);
 });
+app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.status(200).send({
+            message: 'Birthday server in live!'
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Birthday server is NOT live!'
+        });
+    }
+}));
 exports.default = app;
