@@ -22,7 +22,9 @@ app.use(cors())
 dbConnection()
 
 app.use('/', (req, res) => {
-    res.status(200).send('Server is live!')
+    res.status(200).json({
+        message: 'Server is live!'
+    })
 })
 
 app.use('/', routes)
@@ -93,7 +95,8 @@ cron.schedule('0 7 * * *', cronTask)         // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 
 app.listen(PORT, () => {
-    console.log(`Server is running on PORT http://localhost:${PORT}`)
+    // console.log(`Server is running on PORT http://localhost:${PORT}`)
+    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
 })
 
 export default app
