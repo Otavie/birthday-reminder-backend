@@ -21,6 +21,10 @@ app.use(cors())
 // Connect to Database
 dbConnection()
 
+app.use('/', (req, res) => {
+    res.status(200).send('Server is live!')
+})
+
 app.use('/', routes)
 
 const transporter = nodemailer.createTransport({

@@ -30,6 +30,9 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Connect to Database
 (0, db_1.default)();
+app.use('/', (req, res) => {
+    res.status(200).send('Server is live!');
+});
 app.use('/', routes_1.default);
 const transporter = nodemailer_1.default.createTransport({
     service: 'gmail',
