@@ -30,11 +30,6 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 // Connect to Database
 (0, db_1.default)();
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Server is live!'
-    });
-});
 app.use('/', routes_1.default);
 const transporter = nodemailer_1.default.createTransport({
     service: 'gmail',
@@ -97,7 +92,7 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
 node_cron_1.default.schedule('0 7 * * *', cronTask); // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 app.listen(PORT, () => {
-    // console.log(`Server is running on PORT http://localhost:${PORT}`)
-    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`);
+    console.log(`Server is running on PORT http://localhost:${PORT}`);
+    // console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
 });
 exports.default = app;

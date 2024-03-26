@@ -21,12 +21,6 @@ app.use(cors())
 // Connect to Database
 dbConnection()
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Server is live!'
-    })
-})
-
 app.use('/', routes)
 
 const transporter = nodemailer.createTransport({
@@ -95,8 +89,8 @@ cron.schedule('0 7 * * *', cronTask)         // Cron job runs 7am every day
 // cron.schedule('0 13 * * *', cronTask)         // Cron job runs at 1pm every day
 
 app.listen(PORT, () => {
-    // console.log(`Server is running on PORT http://localhost:${PORT}`)
-    console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
+    console.log(`Server is running on PORT http://localhost:${PORT}`)
+    // console.log(`Server is running on PORT https://birthday-reminder-backend-vggr.onrender.com:${PORT}`)
 })
 
 export default app
