@@ -65,15 +65,10 @@ const cronTask = async () => {
         const todayDay = todayDate.getUTCDate();
         // const todayMonth = todayDate.getMonth() + 1;
         const todayMonth = todayDate.getUTCMonth() + 1;
-
-        // console.log(`Today's Date: ${todayDate}`);
-        // console.log(`Today's Day: ${todayDay}`);
-        // console.log(`Today's Month: ${todayMonth}`);
                 
         const celebrants = await Celebrants.find({
             $expr: {
                 $and: [
-                    // { $eq: [{ $subtract: [{ $month: '$dateOfBirth' }, 1] }, todayMonth] },
                     { $eq: [{ $month: '$dateOfBirth'}, todayMonth] },
                     { $eq: [{ $dayOfMonth: '$dateOfBirth' }, todayDay] },
                 ],
@@ -95,8 +90,8 @@ const cronTask = async () => {
     }
 }
 
-// Schedule the cron job to run at 5:41am every day
-cron.schedule('30 6 * * *', cronTask)
+// Schedule the cron job to run at 7:45am every day
+cron.schedule('45 7 * * *', cronTask)
 
 app.listen(PORT, () => {
     console.log(`Server is running on PORT http://localhost:${PORT}`)
