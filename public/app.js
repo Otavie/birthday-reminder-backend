@@ -97,7 +97,7 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 // Schedule the cron job to run at 5:41am every day
-node_cron_1.default.schedule('0 7 * * *', cronTask);
+node_cron_1.default.schedule('17 6 * * *', cronTask);
 app.listen(PORT, () => {
     console.log(`Server is running on PORT http://localhost:${PORT}`);
 });

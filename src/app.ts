@@ -96,7 +96,7 @@ const cronTask = async () => {
 }
 
 // Schedule the cron job to run at 5:41am every day
-cron.schedule('8 6 * * *', cronTask)
+cron.schedule('17 6 * * *', cronTask)
 
 app.listen(PORT, () => {
     console.log(`Server is running on PORT http://localhost:${PORT}`)
