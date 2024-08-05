@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "start:backend": "nodemon  public/app.js",
-    "start": "node public/app.js"
+    "start:backend": "tsc && nodemon public/app.js",
+    "start": "tsc && node public/app.js"
   },
   "keywords": [
     "\"Backebd",

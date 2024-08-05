@@ -21,9 +21,12 @@ const node_cron_1 = __importDefault(require("node-cron"));
 const celebrants_1 = __importDefault(require("./models/celebrants"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 dotenv_1.default.config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
 const EMAIL_PASS = process.env.EMAIL_PASS;
+if (!EMAIL_ADDRESS || !EMAIL_PASS) {
+    throw new Error('Email credentials are not set in the environment variables!');
+}
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 // Enable Cors
@@ -62,16 +65,21 @@ const sendBirthdayEmail = (email) => __awaiter(void 0, void 0, void 0, function*
 const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todayDate = new Date();
-        const todayDay = todayDate.getDate(); // Get today's day
-        const todayMonth = todayDate.getMonth() + 1; // Get today's month
+        // const todayDay = todayDate.getDate();
+        const todayDay = todayDate.getUTCDate();
+        // const todayMonth = todayDate.getMonth() + 1;
+        const todayMonth = todayDate.getUTCMonth() + 1;
+        // console.log(`Today's Date: ${todayDate}`);
+        // console.log(`Today's Day: ${todayDay}`);
+        // console.log(`Today's Month: ${todayMonth}`);
         const celebrants = yield celebrants_1.default.find({
             $expr: {
                 $and: [
                     // { $eq: [{ $subtract: [{ $month: '$dateOfBirth' }, 1] }, todayMonth] },
                     { $eq: [{ $month: '$dateOfBirth' }, todayMonth] },
-                    { $eq: [{ $dayOfMonth: '$dateOfBirth' }, todayDay] }
-                ]
-            }
+                    { $eq: [{ $dayOfMonth: '$dateOfBirth' }, todayDay] },
+                ],
+            },
         });
         if (celebrants.length) {
             console.log('Sending birthday email...');
@@ -88,13 +96,8 @@ const cronTask = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log('Error checking for birthday:', error);
     }
 });
-// cron.schedule('*/1 * * * *', cronTask)          // Cron job runs every minute
-node_cron_1.default.schedule('0 7 * * *', cronTask); // Cron job runs 7am every day
-// cron.schedule('39 14 * * *', cronTask)         // Cron job runs at 1pm every day
-// cron.schedule('0 17 * * *', cronTask)           // Cron job runs at 5pm every day
-// cron.schedule('04 17 * * *', cronTask)           // Cron job runs at 5:04pm every day
-// cron.schedule('30 17 * * *', cronTask)           // Cron job runs at 5:30pm every day
-// cron.schedule('45 17 * * *', cronTask)           // Cron job runs at 5:45pm every day
+// Schedule the cron job to run at 5:41am every day
+node_cron_1.default.schedule('0 7 * * *', cronTask);
 app.listen(PORT, () => {
     console.log(`Server is running on PORT http://localhost:${PORT}`);
 });
